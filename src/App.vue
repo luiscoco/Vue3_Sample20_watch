@@ -1,27 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <p>Count: {{ count }}</p>
+    <p>Message: {{ message }}</p>
+    <button @click="increment">Increment Count</button>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script lang="ts" setup>
+import { ref } from "vue";
+import { useCountWatcher } from "./useCountWatcher";
 
-export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-});
-</script>
+const count = ref(0);
+const message = ref("");
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+useCountWatcher(count, message);
+
+function increment() {
+  count.value++;
 }
-</style>
+</script>
